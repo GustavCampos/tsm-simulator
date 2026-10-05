@@ -2,6 +2,7 @@ import * as engine from './engine.js';
 import { edgeLabel, deltaText, explain, configText } from './format.js';
 import { createRunner } from '../core/runner.js';
 import { createHistory } from '../core/history.js';
+import { createDiagram } from '../core/diagram.js';
 import { loadManifest, loadExample, parseDefinitionText, validateAndNormalize } from '../core/loader.js';
 import { clear, el, setBanner, counterText, statusLineText } from '../core/ui.js';
 import {
@@ -54,6 +55,7 @@ const limitInput = byId('step-limit');
 const stepCount = byId('step-count');
 const banner = byId('banner');
 const statusLine = byId('status-line');
+const diagramBox = byId('diagram-view');
 const tapeBox = byId('tape-view');
 const transitionNow = byId('transition-now');
 const historyBox = byId('history-list');
@@ -68,8 +70,49 @@ let definition = null;
 let currentInput = '';
 let runner = null;
 let tapeView = null;
+let diagram = null;
 let tableRowNodes = [];
 const historyPanel = createHistory(historyBox, { edgeLabel });
+
+/**
+ * Build the state diagram for the loaded machine, discarding the old one.
+ */
+function buildDiagram() {
+  if (diagram) {
+    diagram.destroy();
+    diagram = null;
+  }
+  diagramBox.replaceChildren();
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  diagramBox.append(svg);
+  diagram = createDiagram(svg, {
+    states: definition.states,
+    transitions: definition.transitions,
+    initial: definition.initial,
+    finals: definition.finals,
+    edgeLabel,
+  });
+}
+
+/**
+ * Current node positions, merging diagram drags into a definition copy.
+ * @param {object} base normalized definition
+ * @returns {object} definition copy with updated x/y
+ */
+function withCurrentPositions(base) {
+  const copy = JSON.parse(JSON.stringify(base));
+  if (!diagram) {
+    return copy;
+  }
+  const positions = diagram.getPositions();
+  for (const state of copy.states) {
+    if (positions[state.id]) {
+      state.x = positions[state.id].x;
+      state.y = positions[state.id].y;
+    }
+  }
+  return copy;
+}
 
 /**
  * List validation errors and warnings below the JSON panel.
@@ -180,6 +223,13 @@ function renderAll(state) {
   historyPanel.render(state, definition);
   renderTableActive(state);
   tapeView.render(state, currentInput);
+  if (diagram) {
+    diagram.highlight({
+      stateId: state.config.state,
+      transitionIndex: state.lastTransitionIndex,
+      status: state.status === 'halted' ? state.haltResult : null,
+    });
+  }
 }
 
 /**
@@ -202,6 +252,7 @@ function loadMachine(rawDefinition, input) {
   buildTable();
   buildChips();
   tapeView = createView(tapeBox, definition);
+  buildDiagram();
   if (!runner) {
     runner = createRunner({
       engine,
@@ -212,6 +263,7 @@ function loadMachine(rawDefinition, input) {
       configText,
       onUpdate: renderAll,
     });
+    renderAll(runner.getState());
   } else {
     runner.load({ definition, input: currentInput });
   }
@@ -310,7 +362,7 @@ applyJsonButton.addEventListener('click', () => {
 copyJsonButton.addEventListener('click', async () => {
   jsonMessage.textContent = '';
   try {
-    await navigator.clipboard.writeText(JSON.stringify(definition, null, 2));
+    await navigator.clipboard.writeText(JSON.stringify(withCurrentPositions(definition), null, 2));
     jsonMessage.textContent = 'JSON copiado.';
   } catch (err) {
     jsonMessage.textContent = 'Não foi possível copiar. Selecione o texto manualmente.';

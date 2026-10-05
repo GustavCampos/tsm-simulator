@@ -24,6 +24,16 @@ Implementado:
 - `js/turing/view.js` e `page.js`: fita com cabeçote animado e toda a fiação da página.
 - Atalhos: `→` ou `N` próximo passo, `Espaço` executar/pausar, `R` reiniciar.
 
+## Marco 3 — Diagrama de estados
+
+Implementado:
+
+- `js/core/diagram.js`: `createDiagram(svg, {states, transitions, initial, finals, edgeLabel})` com `highlight`, `clearHighlight`, `getPositions`, `relayout` e `destroy`.
+- SVG próprio, sem bibliotecas: círculos (raio 24, interna 19 para finais), triângulo do estado inicial, setas com `marker`, laços acima do nó, pares opostos em curvas quadráticas opostas, retas nos demais casos, rótulos empilhados em ordem de definição.
+- Posições de `x`/`y` ou layout automático em círculo (inicial à esquerda); `viewBox` ajustado com margem; arrasto com ponteiro (mouse e toque) atualiza arestas e rótulos; `Copiar JSON` exporta as posições atuais.
+- Destaques: estado atual em amarelo (`--state-current`), aceita verde, rejeita vermelho, limite laranja; aresta ativa mais grossa em `--edge-active` com rótulo em negrito.
+- Integrado em `turing.html`/`js/turing/page.js` e estilos em `css/machines.css`; layout com área `diagram` (projetor e 390 px).
+
 ## Como rodar
 
 - Servidor local: `python3 -m http.server 8000` e abrir `http://localhost:8000/`.

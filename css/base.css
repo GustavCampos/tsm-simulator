@@ -99,6 +99,7 @@ body {
     'controls'
     'banner'
     'status'
+    'diagram'
     'memory'
     'transition'
     'history'
@@ -108,6 +109,7 @@ body {
 .area-controls { grid-area: controls; }
 .area-banner { grid-area: banner; }
 .area-status { grid-area: status; }
+.area-diagram { grid-area: diagram; }
 .area-memory { grid-area: memory; }
 .area-transition { grid-area: transition; }
 .area-history { grid-area: history; }
@@ -119,7 +121,7 @@ body {
     grid-template-areas:
       'controls banner transition'
       'controls status transition'
-      'controls memory history'
+      'controls diagram history'
       'controls memory table';
     align-items: start;
   }

@@ -1,5 +1,97 @@
 /* Tape, stacks, transition table, history and transition panel. */
 
+/* State diagram (JFLAP style, hand-written SVG). */
+
+.diagram-view {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.diagram-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 240px;
+}
+
+.diagram-svg .edge {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 1.5;
+}
+
+.diagram-svg .edge.active {
+  stroke: var(--edge-active);
+  stroke-width: 3;
+}
+
+.diagram-svg .edge-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  fill: var(--text);
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 3px;
+}
+
+.diagram-svg .edge-label.active {
+  fill: var(--edge-active);
+  font-weight: 700;
+}
+
+.diagram-svg .node {
+  cursor: grab;
+  touch-action: none;
+}
+
+.diagram-svg .node.dragging {
+  cursor: grabbing;
+}
+
+.diagram-svg .state-circle {
+  fill: var(--surface);
+  stroke: var(--text);
+  stroke-width: 2;
+}
+
+.diagram-svg .state-inner {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 1.5;
+}
+
+.diagram-svg .state-label {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  fill: var(--text);
+  pointer-events: none;
+}
+
+.diagram-svg .initial-marker {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 2;
+}
+
+.diagram-svg .node.is-current .state-circle {
+  fill: var(--state-current);
+}
+
+.diagram-svg .node.is-accept .state-circle {
+  fill: var(--state-accept);
+}
+
+.diagram-svg .node.is-reject .state-circle {
+  fill: var(--state-reject);
+}
+
+.diagram-svg .node.is-limit .state-circle {
+  fill: var(--state-limit);
+}
+
 .input-display {
   margin: 0 0 0.5rem;
   font-weight: 600;
