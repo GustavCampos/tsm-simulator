@@ -1,0 +1,45 @@
+{
+  "type": "turing",
+  "name": "aⁿbⁿ",
+  "description": "Aceita palavras com n símbolos a seguidos de n símbolos b (n ≥ 0).",
+  "inputAlphabet": ["a", "b"],
+  "tapeAlphabet": ["a", "b", "X", "Y", "□"],
+  "blank": "□",
+  "tapeMode": "infinite",
+  "startMarker": null,
+  "states": [
+    { "id": "q0", "x": 80, "y": 170 },
+    { "id": "q1", "x": 260, "y": 170 },
+    { "id": "q2", "x": 260, "y": 300 },
+    { "id": "q3", "x": 440, "y": 170 },
+    { "id": "q4", "x": 560, "y": 170 }
+  ],
+  "initial": "q0",
+  "finals": ["q4"],
+  "transitions": [
+    { "from": "q0", "read": "a", "to": "q1", "write": "X", "move": "R" },
+    { "from": "q0", "read": "Y", "to": "q3", "write": "Y", "move": "R" },
+    { "from": "q0", "read": "□", "to": "q4", "write": "□", "move": "R" },
+    { "from": "q1", "read": "a", "to": "q1", "write": "a", "move": "R" },
+    { "from": "q1", "read": "Y", "to": "q1", "write": "Y", "move": "R" },
+    { "from": "q1", "read": "b", "to": "q2", "write": "Y", "move": "L" },
+    { "from": "q2", "read": "a", "to": "q2", "write": "a", "move": "L" },
+    { "from": "q2", "read": "Y", "to": "q2", "write": "Y", "move": "L" },
+    { "from": "q2", "read": "X", "to": "q0", "write": "X", "move": "R" },
+    { "from": "q3", "read": "Y", "to": "q3", "write": "Y", "move": "R" },
+    { "from": "q3", "read": "□", "to": "q4", "write": "□", "move": "R" }
+  ],
+  "suggestedInputs": ["aabb", "aab", ""],
+  "tests": [
+    { "input": "", "expect": "accept" },
+    { "input": "ab", "expect": "accept" },
+    { "input": "aabb", "expect": "accept" },
+    { "input": "aaabbb", "expect": "accept" },
+    { "input": "a", "expect": "reject" },
+    { "input": "b", "expect": "reject" },
+    { "input": "aab", "expect": "reject" },
+    { "input": "abb", "expect": "reject" },
+    { "input": "ba", "expect": "reject" },
+    { "input": "abab", "expect": "reject" }
+  ]
+}

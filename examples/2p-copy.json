@@ -1,0 +1,41 @@
+{
+  "type": "two-stack",
+  "name": "w#w",
+  "description": "Aceita palavras da forma w#w, com w em {a,b}*. Empilha w em P1, transfere para P2 e confere a segunda cópia.",
+  "inputAlphabet": ["a", "b", "#"],
+  "stackAlphabet": ["a", "b", "Z"],
+  "bottom": "Z",
+  "states": [
+    { "id": "q0", "x": 90, "y": 170 },
+    { "id": "q1", "x": 240, "y": 170 },
+    { "id": "q2", "x": 390, "y": 170 },
+    { "id": "q3", "x": 530, "y": 170 }
+  ],
+  "initial": "q0",
+  "finals": ["q3"],
+  "transitions": [
+    { "from": "q0", "to": "q0", "read": "a", "pop1": "", "push1": "a", "pop2": "", "push2": "" },
+    { "from": "q0", "to": "q0", "read": "b", "pop1": "", "push1": "b", "pop2": "", "push2": "" },
+    { "from": "q0", "to": "q1", "read": "#", "pop1": "", "push1": "", "pop2": "", "push2": "" },
+    { "from": "q1", "to": "q1", "read": "", "pop1": "a", "push1": "", "pop2": "", "push2": "a" },
+    { "from": "q1", "to": "q1", "read": "", "pop1": "b", "push1": "", "pop2": "", "push2": "b" },
+    { "from": "q1", "to": "q2", "read": "", "pop1": "Z", "push1": "Z", "pop2": "", "push2": "" },
+    { "from": "q2", "to": "q2", "read": "a", "pop1": "", "push1": "", "pop2": "a", "push2": "" },
+    { "from": "q2", "to": "q2", "read": "b", "pop1": "", "push1": "", "pop2": "b", "push2": "" },
+    { "from": "q2", "to": "q3", "read": "", "pop1": "", "push1": "", "pop2": "Z", "push2": "Z" }
+  ],
+  "suggestedInputs": ["ab#ab", "#", "ab#ba"],
+  "tests": [
+    { "input": "#", "expect": "accept" },
+    { "input": "a#a", "expect": "accept" },
+    { "input": "ab#ab", "expect": "accept" },
+    { "input": "abba#abba", "expect": "accept" },
+    { "input": "ab#ba", "expect": "reject" },
+    { "input": "ab", "expect": "reject" },
+    { "input": "a#", "expect": "reject" },
+    { "input": "#a", "expect": "reject" },
+    { "input": "a#ab", "expect": "reject" },
+    { "input": "ab#a", "expect": "reject" },
+    { "input": "a#a#a", "expect": "reject" }
+  ]
+}

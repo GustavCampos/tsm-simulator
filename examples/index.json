@@ -1,0 +1,11 @@
+{
+  "turing": [
+    { "file": "tm-anbn.json", "name": "aⁿbⁿ" },
+    { "file": "tm-binary-increment.json", "name": "Incremento binário" },
+    { "file": "tm-loop.json", "name": "Laço infinito (limite de passos)" }
+  ],
+  "two-stack": [
+    { "file": "2p-anbncn.json", "name": "aⁿbⁿcⁿ" },
+    { "file": "2p-copy.json", "name": "w#w" }
+  ]
+}

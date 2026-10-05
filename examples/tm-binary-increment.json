@@ -1,0 +1,33 @@
+{
+  "type": "turing",
+  "name": "Incremento binário",
+  "description": "Soma 1 a um número binário. O cabeçote começa no dígito mais à esquerda, vai até o fim e soma com vai-um.",
+  "inputAlphabet": ["0", "1"],
+  "tapeAlphabet": ["0", "1", "□"],
+  "blank": "□",
+  "tapeMode": "infinite",
+  "startMarker": null,
+  "states": [
+    { "id": "q0", "x": 100, "y": 170 },
+    { "id": "q1", "x": 300, "y": 170 },
+    { "id": "q2", "x": 500, "y": 170 }
+  ],
+  "initial": "q0",
+  "finals": ["q2"],
+  "transitions": [
+    { "from": "q0", "read": "0", "to": "q0", "write": "0", "move": "R" },
+    { "from": "q0", "read": "1", "to": "q0", "write": "1", "move": "R" },
+    { "from": "q0", "read": "□", "to": "q1", "write": "□", "move": "L" },
+    { "from": "q1", "read": "1", "to": "q1", "write": "0", "move": "L" },
+    { "from": "q1", "read": "0", "to": "q2", "write": "1", "move": "L" },
+    { "from": "q1", "read": "□", "to": "q2", "write": "1", "move": "L" }
+  ],
+  "suggestedInputs": ["1011", "111", "0"],
+  "tests": [
+    { "input": "1011", "expect": "accept", "expectTape": "1100" },
+    { "input": "111", "expect": "accept", "expectTape": "1000" },
+    { "input": "0", "expect": "accept", "expectTape": "1" },
+    { "input": "", "expect": "accept", "expectTape": "1" },
+    { "input": "100", "expect": "accept", "expectTape": "101" }
+  ]
+}

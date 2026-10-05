@@ -1,0 +1,41 @@
+{
+  "type": "two-stack",
+  "name": "aⁿbⁿcⁿ",
+  "description": "Aceita palavras com n símbolos a, depois n símbolos b, depois n símbolos c (n ≥ 0). Conta os a em P1, move para P2 como B ao ler b, confere com c.",
+  "inputAlphabet": ["a", "b", "c"],
+  "stackAlphabet": ["A", "B", "Z"],
+  "bottom": "Z",
+  "states": [
+    { "id": "q0", "x": 60, "y": 170 },
+    { "id": "qa", "x": 180, "y": 170 },
+    { "id": "qb", "x": 300, "y": 170 },
+    { "id": "qc", "x": 420, "y": 170 },
+    { "id": "qf", "x": 540, "y": 170 }
+  ],
+  "initial": "q0",
+  "finals": ["q0", "qf"],
+  "transitions": [
+    { "from": "q0", "to": "qa", "read": "a", "pop1": "", "push1": "A", "pop2": "", "push2": "" },
+    { "from": "qa", "to": "qa", "read": "a", "pop1": "", "push1": "A", "pop2": "", "push2": "" },
+    { "from": "qa", "to": "qb", "read": "b", "pop1": "A", "push1": "", "pop2": "", "push2": "B" },
+    { "from": "qb", "to": "qb", "read": "b", "pop1": "A", "push1": "", "pop2": "", "push2": "B" },
+    { "from": "qb", "to": "qc", "read": "c", "pop1": "Z", "push1": "Z", "pop2": "B", "push2": "" },
+    { "from": "qc", "to": "qc", "read": "c", "pop1": "Z", "push1": "Z", "pop2": "B", "push2": "" },
+    { "from": "qc", "to": "qf", "read": "", "pop1": "Z", "push1": "Z", "pop2": "Z", "push2": "Z" }
+  ],
+  "suggestedInputs": ["aabbcc", "abc", "aabbc"],
+  "tests": [
+    { "input": "", "expect": "accept" },
+    { "input": "abc", "expect": "accept" },
+    { "input": "aabbcc", "expect": "accept" },
+    { "input": "aaabbbccc", "expect": "accept" },
+    { "input": "a", "expect": "reject" },
+    { "input": "ab", "expect": "reject" },
+    { "input": "aabbc", "expect": "reject" },
+    { "input": "abcc", "expect": "reject" },
+    { "input": "aabcc", "expect": "reject" },
+    { "input": "abbc", "expect": "reject" },
+    { "input": "acb", "expect": "reject" },
+    { "input": "abcabc", "expect": "reject" }
+  ]
+}
