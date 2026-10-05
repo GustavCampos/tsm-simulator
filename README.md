@@ -53,6 +53,10 @@ O comando roda `node --test tests/`, cobrindo os motores, os formatadores, o imp
 
 Layout verificado em 1366×768 (projetor) e 390 px de largura, com modo claro e escuro via `prefers-color-scheme`. Fonte base de 16 px, células de fita e pilha com pelo menos 40 px e alto contraste.
 
+## Publicação (GitHub Pages)
+
+O arquivo vazio `.nojekyll` na raiz desativa o Jekyll no GitHub Pages. Sem ele, o Jekyll tenta interpretar os `{{...}}` do JSDoc em `SPEC.md` como Liquid e a publicação falha (`Liquid syntax error`). O site é estático puro e não precisa do Jekyll.
+
 ## Uso de IA generativa
 
 SPEC.md, AGENTS.md e o planejamento do projeto foram gerados com Claude Opus 5.5 via Claude Desktop. A execução foi feita com opencode rodando MuseSpark 1.3 Contributor com high thinking, uma única sessão por marco:

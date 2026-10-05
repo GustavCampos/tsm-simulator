@@ -189,7 +189,7 @@ export function validateInput(definition, input) {}
 export function initialConfig(definition, input) {}
 /**
  * @returns {{kind: "moved", config, transitionIndex, effects}
- *         | {kind: "halt", result: "accept" | "reject", reason: string, transitionIndex: number | null}}
+ *         | {kind: "halt", result: "accept" | "reject", reason: string, transitionIndex: number | null}}}
  */
 export function step(definition, config) {}
 ```
