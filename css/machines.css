@@ -1,0 +1,216 @@
+/* Tape, stacks, transition table, history and transition panel. */
+
+.input-display {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.tape-scroll {
+  overflow-x: auto;
+  padding: 2.2rem 0.5rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+}
+
+.tape-content {
+  position: relative;
+  display: inline-block;
+  min-width: 100%;
+}
+
+.tape-row {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.tape-cell {
+  flex: 0 0 auto;
+  width: 44px;
+  min-height: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--mono);
+}
+
+.tape-symbol {
+  font-size: 1.3rem;
+  line-height: 1.2;
+}
+
+.tape-index {
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.tape-cell.head-cell {
+  border-color: var(--accent);
+  border-width: 3px;
+}
+
+.tape-cell.just-written {
+  animation: tape-flash var(--flash-duration, 200ms) ease-out 1;
+}
+
+@keyframes tape-flash {
+  from {
+    background: var(--state-current);
+  }
+  to {
+    background: var(--surface);
+  }
+}
+
+.tape-wall {
+  flex: 0 0 auto;
+  width: 12px;
+  border-radius: 6px;
+  background: var(--text);
+}
+
+.head-marker {
+  position: absolute;
+  top: -2rem;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 200ms ease-out;
+  will-change: transform;
+}
+
+.head-arrow {
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 12px solid var(--accent);
+}
+
+.head-state {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: var(--accent);
+  color: var(--accent-text);
+  border-radius: 4px;
+  padding: 0 0.35rem;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+.tape-final {
+  margin: 0.75rem 0 0;
+  font-family: var(--mono);
+  overflow-wrap: anywhere;
+}
+
+.transition-now p {
+  margin: 0.25rem 0;
+}
+
+.transition-now .delta {
+  font-family: var(--mono);
+  font-weight: 700;
+}
+
+.transition-now .empty {
+  color: var(--muted);
+}
+
+.history {
+  max-height: 260px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  padding: 0.5rem;
+}
+
+.history-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+}
+
+.history-entry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.6rem;
+  padding: 0.25rem 0.4rem;
+  border-radius: 4px;
+  overflow-wrap: anywhere;
+}
+
+.history-current {
+  background: var(--row-active);
+  font-weight: 700;
+}
+
+.history-result {
+  font-weight: 800;
+  margin-top: 0.3rem;
+}
+
+.history-accept {
+  color: var(--banner-accept-text);
+}
+
+.history-reject {
+  color: var(--banner-reject-text);
+}
+
+.history-limit {
+  color: var(--banner-limit-text);
+}
+
+.table-wrap {
+  overflow: auto;
+  max-height: 300px;
+}
+
+.trans-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.trans-table th,
+.trans-table td {
+  border: 1px solid var(--border);
+  padding: 0.3rem 0.45rem;
+  text-align: left;
+  font-family: var(--mono);
+}
+
+.trans-table thead th {
+  font-family: inherit;
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+}
+
+.trans-table tr.active-row td {
+  background: var(--row-active);
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .head-marker {
+    transition: none;
+  }
+
+  .tape-cell.just-written {
+    animation: none;
+  }
+}

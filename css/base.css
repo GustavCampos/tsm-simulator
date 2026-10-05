@@ -1,0 +1,336 @@
+/* Design tokens, layout, buttons and banner shared by both simulators. */
+
+:root {
+  color-scheme: light dark;
+  --bg: #f6f4ec;
+  --surface: #ffffff;
+  --text: #1c1a15;
+  --muted: #5d574a;
+  --border: #d8d2c2;
+  --accent: #1d4ed8;
+  --accent-text: #ffffff;
+  --banner-neutral-bg: #e8e4d6;
+  --banner-neutral-text: #1c1a15;
+  --banner-accept-bg: #d9f0dd;
+  --banner-accept-text: #14532d;
+  --banner-reject-bg: #fbe0e0;
+  --banner-reject-text: #7f1d1d;
+  --banner-limit-bg: #fdecca;
+  --banner-limit-text: #78350f;
+  --state-current: #facc15;
+  --state-accept: #4ade80;
+  --state-reject: #f87171;
+  --state-limit: #fb923c;
+  --edge-active: #1d4ed8;
+  --row-active: #dbeafe;
+  --mono: ui-monospace, 'Cascadia Mono', Menlo, Consolas, monospace;
+  --radius: 10px;
+  --gap: 1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141310;
+    --surface: #1f1d18;
+    --text: #f0ede3;
+    --muted: #b3ac9a;
+    --border: #3d392f;
+    --accent: #93c5fd;
+    --accent-text: #0b1526;
+    --banner-neutral-bg: #2c2a23;
+    --banner-neutral-text: #f0ede3;
+    --banner-accept-bg: #123a24;
+    --banner-accept-text: #bbf7d0;
+    --banner-reject-bg: #431313;
+    --banner-reject-text: #fecaca;
+    --banner-limit-bg: #452a08;
+    --banner-limit-text: #fde68a;
+    --row-active: #1e3a5f;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap);
+  padding: 0.75rem 1.25rem;
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+}
+
+.site-header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.course {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.site-header nav a {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.layout {
+  display: grid;
+  gap: var(--gap);
+  padding: var(--gap);
+  max-width: 1500px;
+  margin: 0 auto;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'controls'
+    'banner'
+    'status'
+    'memory'
+    'transition'
+    'history'
+    'table';
+}
+
+.area-controls { grid-area: controls; }
+.area-banner { grid-area: banner; }
+.area-status { grid-area: status; }
+.area-memory { grid-area: memory; }
+.area-transition { grid-area: transition; }
+.area-history { grid-area: history; }
+.area-table { grid-area: table; }
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: 300px minmax(0, 1fr) 340px;
+    grid-template-areas:
+      'controls banner transition'
+      'controls status transition'
+      'controls memory history'
+      'controls memory table';
+    align-items: start;
+  }
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+.panel h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.controls h2 {
+  margin-bottom: 0;
+}
+
+.machine-description {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.field-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.field-row input[type='text'] {
+  flex: 1;
+  min-width: 0;
+}
+
+label {
+  font-weight: 600;
+}
+
+input[type='text'],
+input[type='number'],
+select,
+textarea {
+  font: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.5rem;
+}
+
+input[type='range'] {
+  width: 100%;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  padding: 0.45rem 0.7rem;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+  font-weight: 700;
+}
+
+.button-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.field-error {
+  margin: 0.25rem 0 0;
+  color: var(--banner-reject-text);
+  font-weight: 600;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chips button {
+  padding: 0.2rem 0.6rem;
+  font-family: var(--mono);
+}
+
+.shortcuts {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.json-panel summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.json-panel textarea {
+  width: 100%;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+
+.json-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.json-message {
+  margin: 0.4rem 0 0;
+  font-size: 0.9rem;
+}
+
+.validation-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
+}
+
+.validation-list .error {
+  color: var(--banner-reject-text);
+  font-weight: 600;
+}
+
+.validation-list .warning {
+  color: var(--muted);
+}
+
+.banner {
+  border-radius: var(--radius);
+  padding: 0.9rem 1.1rem;
+  border: 2px solid transparent;
+}
+
+.banner-neutral {
+  background: var(--banner-neutral-bg);
+  color: var(--banner-neutral-text);
+  border-color: var(--border);
+}
+
+.banner-accept {
+  background: var(--banner-accept-bg);
+  color: var(--banner-accept-text);
+  border-color: currentColor;
+}
+
+.banner-reject {
+  background: var(--banner-reject-bg);
+  color: var(--banner-reject-text);
+  border-color: currentColor;
+}
+
+.banner-limit {
+  background: var(--banner-limit-bg);
+  color: var(--banner-limit-text);
+  border-color: currentColor;
+}
+
+.banner-title {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.banner-detail {
+  margin: 0.25rem 0 0;
+}
+
+.status-line {
+  margin: 0;
+  font-weight: 600;
+}
