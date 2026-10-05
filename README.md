@@ -8,7 +8,7 @@ Páginas:
 - `turing.html`: Máquina de Turing (fita e cabeçote, importação JFLAP `.jff`).
 - `duas-pilhas.html`: Máquina de Duas Pilhas (fita de entrada somente leitura e duas pilhas animadas).
 
-Somente HTML, CSS e JavaScript puros, sem dependências e sem CDNs. O site é estático e publicado no GitHub Pages.
+Somente HTML, CSS e JavaScript puros, sem dependências e sem CDNs.
 
 ## Como usar
 
@@ -53,29 +53,16 @@ O comando roda `node --test tests/`, cobrindo os motores, os formatadores, o imp
 
 Layout verificado em 1366×768 (projetor) e 390 px de largura, com modo claro e escuro via `prefers-color-scheme`. Fonte base de 16 px, células de fita e pilha com pelo menos 40 px e alto contraste.
 
-## Publicação no GitHub Pages
+## Uso de IA generativa
 
-1. Envie o repositório para o GitHub com os arquivos na raiz.
-2. Em Settings → Pages, selecione a branch `main` e a pasta `/ (root)`.
-3. Aguarde a publicação em `https://<usuário>.github.io/<repositório>/`.
-4. Use sempre caminhos relativos (`./js/...`, `./css/...`, `./turing.html`); caminhos absolutos quebram sob `/<repositório>/`.
-
-## Marcos implementados
+SPEC.md, AGENTS.md e o planejamento do projeto foram gerados com Claude Opus 5.5 via Claude Desktop. A execução foi feita com opencode rodando MuseSpark 1.3 Contributor com high thinking, uma única sessão por marco:
 
 - Marco 1 — Motores e exemplos: `js/turing/engine.js`, `js/two-stack/engine.js`, formatadores, `js/config.js`, exemplos e testes.
 - Marco 2 — Página de Turing sem diagrama: layout, runner, controles, faixa, transição atual, histórico, tabela e fita.
 - Marco 3 — Diagrama de estados: `js/core/diagram.js` com SVG próprio, laços, pares opostos, arrasto e destaques; integrado à página de Turing.
 - Marco 4 — Página de duas pilhas: fita de entrada e pilhas animadas, reutilizando runner, histórico, diagrama e loader.
 - Marco 5 — Importação JFLAP: `js/turing/jff.js` com `parseJff` e testes com fixtures XML inline; campo de importação na página de Turing.
-- Marco 6 — Acabamento e publicação: página inicial, atalhos, responsivo e projetor, modo escuro e este README.
-
-## Equipe
-
-Nome 1, Nome 2, Nome 3, Nome 4 — Teoria da Computação e Complexidade, UNIJUÍ, 2026/2.
-
-## Uso de IA generativa
-
-(Equipe: descrever aqui as ferramentas utilizadas, o que foi gerado ou revisado com IA e como o resultado foi verificado.)
+- Marco 6 — Acabamento: página inicial, atalhos, responsivo e projetor, modo escuro e este README.
 
 ## Questões em aberto
 
