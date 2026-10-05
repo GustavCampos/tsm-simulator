@@ -24,13 +24,13 @@ function baseDef(overrides = {}) {
 }
 
 describe('two-stack normalize', () => {
-  it('converts λ to empty string and defaults bottom to Z', () => {
+  it('converts ε and λ to empty string and defaults bottom to Z', () => {
     const def = normalize({
       type: 'two-stack',
       states: [{ id: 'q0' }],
       initial: 'q0',
       finals: [],
-      transitions: [{ from: 'q0', to: 'q0', read: 'λ', pop1: 'λ', push1: 'λ', pop2: 'λ', push2: 'λ' }],
+      transitions: [{ from: 'q0', to: 'q0', read: 'ε', pop1: 'λ', push1: 'ε', pop2: 'λ', push2: 'ε' }],
     });
     assert.equal(def.transitions[0].read, '');
     assert.equal(def.bottom, 'Z');
@@ -160,11 +160,11 @@ describe('two-stack initialConfig and step', () => {
 describe('two-stack format', () => {
   it('formats edgeLabel and deltaText', () => {
     const t = { from: 'q0', to: 'qa', read: 'a', pop1: '', push1: 'A', pop2: '', push2: '' };
-    assert.equal(edgeLabel(t), 'a , λ ; A | λ ; λ');
-    assert.equal(deltaText(t), 'δ(q0, a, λ, λ) = (qa, A, λ)');
+    assert.equal(edgeLabel(t), 'a , ε ; A | ε ; ε');
+    assert.equal(deltaText(t), 'δ(q0, a, ε, ε) = (qa, A, ε)');
   });
 
-  it('explains lambda reads in Portuguese', () => {
+  it('explains empty reads in Portuguese', () => {
     const t = { from: 'qc', to: 'qf', read: '', pop1: 'Z', push1: 'Z', pop2: 'Z', push2: 'Z' };
     const s = explain(t, { consumed: '', popped1: 'Z', pushed1: 'Z', popped2: 'Z', pushed2: 'Z' });
     assert.ok(s.includes('não leu nada da entrada') || s.includes('Não leu nada da entrada'));

@@ -14,7 +14,7 @@ function isSingleChar(value) {
 }
 
 /**
- * Normalize a lambda field ("λ" becomes "").
+ * Normalize an empty field ("ε" and legacy "λ" become "").
  * @param {unknown} value raw field value
  * @returns {string} normalized string
  */
@@ -22,15 +22,15 @@ function normField(value) {
   if (value === null || value === undefined) {
     return '';
   }
-  if (value === 'λ') {
+  if (value === 'ε' || value === 'λ') {
     return '';
   }
   return value;
 }
 
 /**
- * Check if two transition values are compatible (equal or either is lambda).
- * @param {string} a first value ("" means lambda)
+ * Check if two transition values are compatible (equal or either is empty).
+ * @param {string} a first value ("" means empty)
  * @param {string} b second value
  * @returns {boolean} true when compatible
  */
@@ -50,7 +50,7 @@ export function normalize(definition) {
   def.stackAlphabet = Array.isArray(def.stackAlphabet) ? [...def.stackAlphabet] : [];
   if (def.bottom === undefined) {
     def.bottom = 'Z';
-  } else if (def.bottom === 'λ') {
+  } else if (def.bottom === 'λ' || def.bottom === 'ε') {
     def.bottom = null;
   }
   def.states = Array.isArray(def.states)

@@ -26,12 +26,12 @@ Na página de Turing há ainda o campo “Importar .jff (JFLAP)”: escolha um a
 
 ## Formato dos rótulos
 
-Símbolos especiais: `λ` significa “nada” (gravado como `""` no JSON), `□` é o branco da fita de Turing, `ε` é a palavra vazia na interface.
+Símbolos especiais: `ε` significa “nada” nos campos das transições (gravado como `""` no JSON; `"λ"` ainda é aceito na leitura por compatibilidade), `□` é o branco da fita de Turing, `ε` também indica a palavra vazia na interface.
 
 - Turing, aresta: `a ; X , R` (lê `a`, escreve `X`, move `R`). Movimentos: `L`, `R`, `S` (configurável em `js/config.js` via `MOVE_LABELS`).
 - Turing, δ: `δ(q0, a) = (q1, X, R)`.
-- Duas pilhas, aresta: `a , λ ; A | λ ; λ`, no formato `leitura , desempilha P1 ; empilha P1 | desempilha P2 ; empilha P2`.
-- Duas pilhas, δ: `δ(q0, a, λ, λ) = (qa, A, λ)`.
+- Duas pilhas, aresta: `a , ε ; A | ε ; ε`, no formato `leitura , desempilha P1 ; empilha P1 | desempilha P2 ; empilha P2`.
+- Duas pilhas, δ: `δ(q0, a, ε, ε) = (qa, A, ε)`.
 - Empilhar uma cadeia coloca o símbolo mais à esquerda no topo: empilhar `"AB"` sobre `Z` resulta em `Z B A` (fundo → topo), com `A` no topo.
 
 ## Como rodar localmente

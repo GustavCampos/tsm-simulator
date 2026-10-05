@@ -1,13 +1,13 @@
 import { MOVE_LABELS } from '../config.js';
 
 /**
- * Show a symbol, displaying lambda as λ.
- * @param {string} symbol single symbol or "" for lambda
+ * Show a symbol, displaying empty as ε.
+ * @param {string} symbol single symbol or "" for empty
  * @returns {string} display string
  */
 function show(symbol) {
   if (symbol === '' || symbol === null || symbol === undefined) {
-    return 'λ';
+    return 'ε';
   }
   return symbol;
 }

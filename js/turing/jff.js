@@ -55,7 +55,7 @@ function attrValue(openingTag, name) {
 
 /**
  * Map a JFLAP read/write cell to a project symbol.
- * Empty cells (or `λ`) mean the blank symbol.
+ * Empty cells (or `ε`/`λ`) mean the blank symbol.
  * @param {string|null} raw raw cell content or null when the tag is missing
  * @returns {string} single symbol (`□` for blank)
  */
@@ -64,7 +64,7 @@ function jffSymbol(raw) {
     return BLANK;
   }
   const trimmed = raw.trim();
-  if (trimmed === '' || trimmed === 'λ') {
+  if (trimmed === '' || trimmed === 'λ' || trimmed === 'ε') {
     return BLANK;
   }
   return trimmed;

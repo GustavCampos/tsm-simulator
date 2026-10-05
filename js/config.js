@@ -20,5 +20,7 @@ export const STEP_LIMIT_MIN = 1;
 export const MOVE_LABELS = { L: 'L', R: 'R', S: 'S' };
 /** Symbol shown when the input word is empty. */
 export const EMPTY_WORD_LABEL = 'ε';
-/** Symbol shown for lambda (empty) transition fields. */
-export const LAMBDA_LABEL = 'λ';
+/** Symbol shown for empty transition fields (epsilon). */
+export const LAMBDA_LABEL = 'ε';
+/** Alias kept for clarity: empty transition fields use epsilon. */
+export const EMPTY_SYMBOL_LABEL = 'ε';

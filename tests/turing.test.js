@@ -27,13 +27,13 @@ function baseDef(overrides = {}) {
 }
 
 describe('turing normalize', () => {
-  it('converts λ to empty string and fills defaults', () => {
+  it('converts ε and λ to empty string and fills defaults', () => {
     const def = normalize({
       type: 'turing',
       states: [{ id: 'q0' }],
       initial: 'q0',
       finals: [],
-      transitions: [{ from: 'q0', read: 'λ', to: 'q0', write: 'λ', move: 'R' }],
+      transitions: [{ from: 'q0', read: 'ε', to: 'q0', write: 'λ', move: 'R' }],
     });
     assert.equal(def.transitions[0].read, '');
     assert.equal(def.transitions[0].write, '');
@@ -181,7 +181,7 @@ describe('turing format', () => {
     const t = { from: 'q0', read: 'a', to: 'q1', write: 'X', move: 'R' };
     assert.equal(edgeLabel(t), 'a ; X , R');
     assert.equal(deltaText(t), 'δ(q0, a) = (q1, X, R)');
-    assert.equal(edgeLabel({ ...t, read: '' }), 'λ ; X , R');
+    assert.equal(edgeLabel({ ...t, read: '' }), 'ε ; X , R');
   });
 
   it('explains a step in Portuguese', () => {

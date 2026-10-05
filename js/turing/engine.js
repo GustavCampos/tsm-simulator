@@ -13,15 +13,15 @@ function isSingleChar(value) {
 }
 
 /**
- * Normalize lambda notation ("λ" becomes "") in a transition field.
+ * Normalize empty notation ("ε" and legacy "λ" become "") in a transition field.
  * @param {unknown} value raw field value
- * @returns {string} normalized string ("λ", null and undefined become "")
+ * @returns {string} normalized string ("ε", "λ", null and undefined become "")
  */
 function normSymbol(value) {
   if (value === null || value === undefined) {
     return '';
   }
-  if (value === 'λ') {
+  if (value === 'ε' || value === 'λ') {
     return '';
   }
   return value;
@@ -38,14 +38,14 @@ export function normalize(definition) {
   def.inputAlphabet = Array.isArray(def.inputAlphabet) ? [...def.inputAlphabet] : [];
   def.tapeAlphabet = Array.isArray(def.tapeAlphabet) ? [...def.tapeAlphabet] : [];
   def.blank = def.blank ?? '□';
-  if (def.blank === 'λ' || def.blank === '') {
+  if (def.blank === 'λ' || def.blank === 'ε' || def.blank === '') {
     def.blank = '□';
   }
   def.tapeMode = def.tapeMode ?? 'infinite';
   if (def.startMarker === undefined) {
     def.startMarker = null;
   }
-  if (def.startMarker === 'λ' || def.startMarker === '') {
+  if (def.startMarker === 'λ' || def.startMarker === 'ε' || def.startMarker === '') {
     def.startMarker = null;
   }
   def.states = Array.isArray(def.states)
@@ -157,7 +157,7 @@ export function validate(definition) {
     }
     const key = `${t.from}\u0000${t.read}`;
     if (seen.has(key)) {
-      errors.push(`Transições duplicadas para (${t.from}, ${t.read === '' ? 'λ' : t.read}): transições ${seen.get(key)} e ${i}.`);
+      errors.push(`Transições duplicadas para (${t.from}, ${t.read === '' ? 'ε' : t.read}): transições ${seen.get(key)} e ${i}.`);
     } else {
       seen.set(key, i);
     }

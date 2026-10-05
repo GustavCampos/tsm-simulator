@@ -4,19 +4,19 @@
  */
 
 /**
- * Show a symbol, displaying lambda as λ.
- * @param {string} symbol single symbol or "" for lambda
+ * Show a symbol, displaying empty as ε.
+ * @param {string} symbol single symbol or "" for empty
  * @returns {string} display string
  */
 function show(symbol) {
   if (symbol === '' || symbol === null || symbol === undefined) {
-    return 'λ';
+    return 'ε';
   }
   return symbol;
 }
 
 /**
- * Build the JFLAP edge label: `a , λ ; A | λ ; λ`.
+ * Build the JFLAP edge label: `a , ε ; A | ε ; ε`.
  * @param {object} t transition {read, pop1, push1, pop2, push2}
  * @returns {string} edge label
  */
@@ -25,7 +25,7 @@ export function edgeLabel(t) {
 }
 
 /**
- * Build the delta text: `δ(q0, a, λ, λ) = (qa, A, λ)`.
+ * Build the delta text: `δ(q0, a, ε, ε) = (qa, A, ε)`.
  * @param {object} t transition {from, read, pop1, pop2, to, push1, push2}
  * @returns {string} delta text
  */
