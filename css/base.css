@@ -336,3 +336,74 @@ textarea:focus-visible {
   margin: 0;
   font-weight: 600;
 }
+
+/* Home page (index.html). */
+
+.home {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--gap);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.home-intro {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.cards {
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+  flex: 1;
+}
+
+.card-link {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 6px;
+  border: 1px solid var(--accent);
+  padding: 0.45rem 0.7rem;
+}
+
+a.card-link:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.home-help ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.site-footer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 var(--gap) 2rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.site-footer p {
+  margin: 0.25rem 0;
+}
