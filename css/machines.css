@@ -98,6 +98,18 @@
   overflow-wrap: anywhere;
 }
 
+.state-display {
+  display: inline-block;
+  margin: 0 0 0.5rem;
+  font-family: var(--mono);
+  font-weight: 700;
+  background: var(--accent);
+  color: var(--accent-text);
+  border-radius: 6px;
+  padding: 0.2rem 0.6rem;
+  overflow-wrap: anywhere;
+}
+
 .tape-scroll {
   overflow-x: auto;
   padding: 2.2rem 0.5rem 0.5rem;

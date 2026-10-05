@@ -41,6 +41,7 @@ function motionAllowed() {
  * @returns {{render: Function}} view with `render(state, input)`
  */
 export function createView(container, _definition) {
+  const stateLine = el('p', { cls: 'state-display', attrs: { role: 'status' } });
   const inputLine = el('p', { cls: 'input-display' });
   const tapeBox = el('div', {
     cls: 'input-tape-box',
@@ -75,7 +76,7 @@ export function createView(container, _definition) {
   const col1 = buildColumn('Pilha 1 (P1)', 'P1');
   const col2 = buildColumn('Pilha 2 (P2)', 'P2');
   stacksBox.append(col1.column, col2.column);
-  container.replaceChildren(inputLine, tapeBox, stacksBox);
+  container.replaceChildren(stateLine, inputLine, tapeBox, stacksBox);
 
   /**
    * Render one stack (bottom at index 0, top rendered first).
@@ -125,6 +126,8 @@ export function createView(container, _definition) {
   function render(state, input) {
     const symbols = Array.from(input ?? '');
     const pos = state.config.inputPos ?? 0;
+    const stepNo = state.config.steps ?? 0;
+    stateLine.textContent = `Estado atual: ${state.config.state} · Passo: ${stepNo}`;
     inputLine.textContent = inputDisplayText(input);
     clear(tapeRow);
     if (symbols.length === 0) {
