@@ -43,6 +43,15 @@ Implementado:
 - `js/two-stack/page.js`: reutiliza `runner`, `history`, `diagram`, `loader` e `ui`; lê `examples/index.json` (`two-stack`), diagrama sincronizado, atalhos e painel JSON iguais aos da Turing.
 - `css/machines.css`: estilos da fita de entrada e das pilhas (células ≥ 40 px, animações `stack-in`/`stack-out`, modo escuro herdado das variáveis).
 
+## Marco 5 — Importação JFLAP (.jff)
+
+Implementado:
+
+- `js/turing/jff.js`: `parseJff(xmlText)` puro (sem DOM, funciona nos testes em Node) que lê `<structure><type>turing</type><automaton>…`, mapeia `name` para id (`q`+id quando ausente), célula vazia para `□`, mantém `x`/`y` (reduz quando passa de 600×340), infere `inputAlphabet` (leituras não brancas a partir do inicial) e `tapeAlphabet` (leituras e escritas mais `□`) com aviso em português para conferir no painel JSON.
+- Rejeita com mensagens em português: tipo diferente de `turing`, várias fitas (`tapes` > 1), `<block>`, XML malformado, sem estados, sem estado inicial, transição com estado desconhecido e movimento diferente de R/L/S.
+- `tests/jff.test.js`: fixtures XML inline cobrindo importação válida, branco vazio, `q`+id, redução de coordenadas, alfabetos inferidos, validações e todos os casos de rejeição.
+- `turing.html`/`js/turing/page.js`: campo `Importar .jff (JFLAP)` com `FileReader`; erros e avisos aparecem na lista de validação do painel JSON.
+
 ## Como rodar
 
 - Servidor local: `python3 -m http.server 8000` e abrir `http://localhost:8000/`.

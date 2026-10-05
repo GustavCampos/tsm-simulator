@@ -13,6 +13,7 @@ import {
   STEP_LIMIT_MIN,
 } from '../config.js';
 import { createView } from './view.js';
+import { parseJff } from './jff.js';
 
 /**
  * Get an element by id, throwing when it is missing.
@@ -65,6 +66,7 @@ const applyJsonButton = byId('btn-apply-json');
 const copyJsonButton = byId('btn-copy-json');
 const jsonMessage = byId('json-message');
 const jsonMessages = byId('json-messages');
+const jffFile = byId('jff-file');
 
 let definition = null;
 let currentInput = '';
@@ -367,6 +369,30 @@ copyJsonButton.addEventListener('click', async () => {
   } catch (err) {
     jsonMessage.textContent = 'Não foi possível copiar. Selecione o texto manualmente.';
   }
+});
+jffFile.addEventListener('change', () => {
+  const file = jffFile.files && jffFile.files[0];
+  if (!file) {
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = () => {
+    const { definition: imported, errors, warnings } = parseJff(String(reader.result ?? ''));
+    if (errors.length > 0) {
+      showValidation(errors, warnings);
+      return;
+    }
+    inputField.value = (imported.suggestedInputs ?? [])[0] ?? '';
+    inputError.hidden = true;
+    loadMachine(imported, inputField.value);
+    const { warnings: engineWarnings } = engine.validate(imported);
+    showValidation([], [...warnings, ...engineWarnings]);
+    jffFile.value = '';
+  };
+  reader.onerror = () => {
+    showValidation(['Não foi possível ler o arquivo .jff.'], []);
+  };
+  reader.readAsText(file);
 });
 
 document.addEventListener('keydown', (event) => {
