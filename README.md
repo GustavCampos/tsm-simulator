@@ -34,6 +34,15 @@ Implementado:
 - Destaques: estado atual em amarelo (`--state-current`), aceita verde, rejeita vermelho, limite laranja; aresta ativa mais grossa em `--edge-active` com rótulo em negrito.
 - Integrado em `turing.html`/`js/turing/page.js` e estilos em `css/machines.css`; layout com área `diagram` (projetor e 390 px).
 
+## Marco 4 — Página da Máquina de Duas Pilhas
+
+Implementado:
+
+- `duas-pilhas.html`: mesmo layout da página de Turing, com legenda `leitura , desempilha P1 ; empilha P1 | desempilha P2 ; empilha P2` e tabela de 7 colunas (`Estado`, `Lê`, `Desempilha P1`, `Empilha P1`, `Desempilha P2`, `Empilha P2`, `Próximo`).
+- `js/two-stack/view.js`: `createView(container, definition)` com fita de entrada (símbolos consumidos apagados, ponteiro `▼` na próxima a ler, texto `Entrada totalmente lida`) e duas pilhas lado a lado (fundo embaixo, topo destacado com etiqueta `topo`, `vazia` quando vazia, linha de última operação `Empilhou`/`Desempilhou`/`Sem alteração`, animações de empilhar/desempilhar com `prefers-reduced-motion` respeitado).
+- `js/two-stack/page.js`: reutiliza `runner`, `history`, `diagram`, `loader` e `ui`; lê `examples/index.json` (`two-stack`), diagrama sincronizado, atalhos e painel JSON iguais aos da Turing.
+- `css/machines.css`: estilos da fita de entrada e das pilhas (células ≥ 40 px, animações `stack-in`/`stack-out`, modo escuro herdado das variáveis).
+
 ## Como rodar
 
 - Servidor local: `python3 -m http.server 8000` e abrir `http://localhost:8000/`.

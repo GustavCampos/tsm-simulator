@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Máquina de Duas Pilhas — Simuladores de Modelos de Computação</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/machines.css">
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <p class="course">Teoria da Computação e Complexidade · UNIJUÍ</p>
+      <h1>Máquina de Duas Pilhas</h1>
+    </div>
+    <nav aria-label="Navegação">
+      <a href="./index.html">Início</a>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <section class="panel controls area-controls" aria-label="Controles">
+      <h2 id="machine-name">Máquina de Duas Pilhas</h2>
+      <p id="machine-description" class="machine-description"></p>
+
+      <div class="field">
+        <label for="example-select">Exemplo</label>
+        <select id="example-select"></select>
+      </div>
+
+      <div class="field">
+        <label for="input-field">Entrada</label>
+        <div class="field-row">
+          <input type="text" id="input-field" autocomplete="off" spellcheck="false" aria-describedby="input-error">
+          <button type="button" id="load-input-btn">Carregar entrada</button>
+        </div>
+        <p id="input-error" class="field-error" role="alert" hidden></p>
+        <div id="chips" class="chips" aria-label="Entradas sugeridas"></div>
+      </div>
+
+      <div class="button-row">
+        <button type="button" id="btn-step" class="btn-primary">Executar próximo passo</button>
+        <button type="button" id="btn-play">Executar automaticamente</button>
+        <button type="button" id="btn-reset">Reiniciar</button>
+      </div>
+
+      <div class="field">
+        <label for="speed">Velocidade: <output id="speed-value" for="speed">600 ms</output></label>
+        <input type="range" id="speed" min="50" max="2000" step="50" value="600">
+      </div>
+
+      <div class="field">
+        <label for="step-limit">Limite de passos</label>
+        <input type="number" id="step-limit" min="1" value="1000">
+      </div>
+
+      <p id="step-count" class="status-line" role="status">Passo: 0</p>
+
+      <p class="shortcuts">Atalhos: → ou N próximo passo · Espaço executar/pausar · R reiniciar</p>
+
+      <details class="json-panel">
+        <summary>Definição da máquina</summary>
+        <div class="field">
+          <label for="machine-json">JSON da máquina</label>
+          <textarea id="machine-json" rows="12" spellcheck="false"></textarea>
+        </div>
+        <div class="json-actions">
+          <button type="button" id="btn-apply-json">Aplicar JSON</button>
+          <button type="button" id="btn-copy-json">Copiar JSON</button>
+        </div>
+        <p id="json-message" class="json-message" role="status"></p>
+        <ul id="json-messages" class="validation-list"></ul>
+      </details>
+    </section>
+
+    <div id="banner" class="banner banner-neutral area-banner" role="status" aria-live="polite">
+      <p class="banner-title"></p>
+      <p class="banner-detail"></p>
+    </div>
+    <p id="status-line" class="status-line area-status"></p>
+
+    <section class="panel area-diagram" aria-labelledby="diagram-title">
+      <h2 id="diagram-title">Diagrama de estados</h2>
+      <p class="legend">Formato dos rótulos: leitura , desempilha P1 ; empilha P1 | desempilha P2 ; empilha P2</p>
+      <div id="diagram-view" class="diagram-view"></div>
+    </section>
+
+    <section class="panel area-memory" aria-labelledby="memory-title">
+      <h2 id="memory-title">Entrada e pilhas</h2>
+      <div id="memory-view"></div>
+    </section>
+
+    <section class="panel area-transition" aria-labelledby="now-title">
+      <h2 id="now-title">Transição atual</h2>
+      <div id="transition-now" class="transition-now"></div>
+    </section>
+
+    <section class="panel area-history" aria-labelledby="history-title">
+      <h2 id="history-title">Histórico das configurações</h2>
+      <div id="history-list" class="history" tabindex="0" role="log" aria-label="Histórico das configurações"></div>
+    </section>
+
+    <section class="panel area-table" aria-labelledby="table-title">
+      <h2 id="table-title">Tabela de transições</h2>
+      <div class="table-wrap">
+        <table class="trans-table">
+          <thead>
+            <tr>
+              <th scope="col">Estado</th>
+              <th scope="col">Lê</th>
+              <th scope="col">Desempilha P1</th>
+              <th scope="col">Empilha P1</th>
+              <th scope="col">Desempilha P2</th>
+              <th scope="col">Empilha P2</th>
+              <th scope="col">Próximo</th>
+            </tr>
+          </thead>
+          <tbody id="transition-rows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./js/two-stack/page.js"></script>
+</body>
+</html>

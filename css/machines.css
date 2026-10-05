@@ -297,12 +297,204 @@
   font-weight: 700;
 }
 
+.legend {
+  margin: 0 0 0.5rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-family: var(--mono);
+}
+
+/* Two-stack machine: input tape. */
+
+.input-tape-box {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  padding: 0.5rem;
+  overflow-x: auto;
+}
+
+.input-tape {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.input-cell {
+  flex: 0 0 auto;
+  min-width: 44px;
+  min-height: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--mono);
+  padding: 0.25rem 0.4rem;
+}
+
+.input-symbol {
+  font-size: 1.3rem;
+  line-height: 1.2;
+}
+
+.input-cell.consumed {
+  opacity: 0.45;
+  background: var(--banner-neutral-bg);
+}
+
+.input-cell.next {
+  border-color: var(--accent);
+  border-width: 3px;
+}
+
+.input-pointer {
+  font-size: 0.8rem;
+  line-height: 1;
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.input-status {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Two-stack machine: stacks. */
+
+.stacks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.stack-column {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stack-title {
+  margin: 0;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 120px;
+  justify-content: flex-end;
+}
+
+.stack-cell {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 1.3rem;
+  padding: 0.25rem 0.5rem;
+  overflow-wrap: anywhere;
+}
+
+.stack-cell.stack-top {
+  border-color: var(--accent);
+  border-width: 3px;
+}
+
+.stack-symbol {
+  line-height: 1.2;
+}
+
+.topo-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--accent);
+  color: var(--accent-text);
+  border-radius: 4px;
+  padding: 0 0.35rem;
+  text-transform: uppercase;
+}
+
+.stack-empty {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.stack-op {
+  margin: 0;
+  font-size: 0.9rem;
+  min-height: 1.4em;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.stack-enter {
+  animation: stack-in var(--stack-duration, 200ms) ease-out 1;
+}
+
+.stack-exit {
+  animation: stack-out var(--stack-duration, 200ms) ease-in 1;
+  opacity: 0.9;
+  border-style: dashed;
+}
+
+@keyframes stack-in {
+  from {
+    transform: translateY(-14px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes stack-out {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-14px);
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .head-marker {
     transition: none;
   }
 
   .tape-cell.just-written {
+    animation: none;
+  }
+
+  .stack-enter,
+  .stack-exit {
     animation: none;
   }
 }
